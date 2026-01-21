@@ -1,76 +1,50 @@
 import java.util.Scanner;
 
-/**
- * Instructions:
- * - Complete the WeeklyData.java class first.
- * - Use this App class to collect user input and test your WeeklyData methods.
- * - Follow all TODOs carefully.
- * - Do NOT hard-code values — use loops and method calls.
- */
 public class App {
 
     public static void main(String[] args) {
 
-        // -------------------------------------------------------------
-        // TODO 1: Create a Scanner for user input
-        // -------------------------------------------------------------
+        Scanner input = new Scanner(System.in);
 
+        System.out.println("Weekly Sleep Tracker");
+        System.out.println("This program tracks how many hours you sleep each day.");
+        System.out.println("Try to be honest so you can get accurate feedback.\n");
 
-        // -------------------------------------------------------------
-        // TODO 2: Give information about your program
-        //         Ask the user about their goals (if applicable)
-        // -------------------------------------------------------------
+        double[] weekData = new double[7];
 
+        for (int i = 0; i < weekData.length; i++) {
+            System.out.print("Enter hours of sleep for day " + (i + 1) + ": ");
+            double hours = input.nextDouble();
 
-        // -------------------------------------------------------------
-        // TODO 3: Create an array to hold 7 days of data
-        //         Use an appropriate data type (int or double)
-        //         Name the array weekData
-        // -------------------------------------------------------------
+            while (hours < 0) {
+                System.out.print("Sleep hours cannot be negative. Re-enter: ");
+                hours = input.nextDouble();
+            }
 
+            weekData[i] = hours;
+        }
 
-        // -------------------------------------------------------------
-        // TODO 4: Use a for loop to collect data for each day of the week
-        //         Prompt example:
-        //         "Enter <data type> for day X: "
-        //
-        //         Include input validation:
-        //         - Use a while loop to prevent negative values
-        //         - Re-prompt if the value is invalid
-        // -------------------------------------------------------------
+        WeeklyData sleepWeek = new WeeklyData(weekData);
 
+        System.out.println("\nSleep Analysis Results");
+        System.out.println("Total hours slept: " + sleepWeek.getTotal());
+        System.out.println("Average hours per night: " + sleepWeek.getAverage());
+        System.out.println("Least sleep in one night: " + sleepWeek.getMin());
+        System.out.println("Most sleep in one night: " + sleepWeek.getMax());
 
-        // -------------------------------------------------------------
-        // TODO 5: Create a WeeklyData object
-        //         Pass the weekData array into the constructor
-        // -------------------------------------------------------------
+        System.out.println("\nFull Week of Sleep Data");
+        System.out.println(sleepWeek.toString());
 
+        double average = sleepWeek.getAverage();
 
-        // -------------------------------------------------------------
-        // TODO 6: Display the results of the analysis
-        //         Call methods from WeeklyData to display:
-        //         - Total
-        //         - Average
-        //         - Minimum
-        //         - Maximum
-        //
-        //         Use clear labels and formatted output if needed
-        // -------------------------------------------------------------
+        if (average < 7) {
+            System.out.println("You are not getting enough sleep. Try to rest more next week.");
+        } else if (average <= 9) {
+            System.out.println("Great job. You are getting a healthy amount of sleep.");
+        } else {
+            System.out.println("You slept a lot this week. Make sure your schedule is balanced.");
+        }
 
-
-        // -------------------------------------------------------------
-        // TODO 7: Display the full week of data
-        //         Use the toString() method from WeeklyData
-        // -------------------------------------------------------------
-
-
-        // -------------------------------------------------------------
-        // TODO 8: Give the user insights about their week
-        //         --> "You need to drink more water next week!"
-        //         --> "You were very hydrated this week!"
-        //         --> etc.
-        // -------------------------------------------------------------
-
-
+        input.close();
     }
 }
