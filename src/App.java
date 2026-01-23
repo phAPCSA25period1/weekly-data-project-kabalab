@@ -14,10 +14,15 @@ public class App {
 
         for (int i = 0; i < weekData.length; i++) {
             System.out.print("Enter hours of sleep for day " + (i + 1) + ": ");
-            double hours = input.nextDouble();
-
-            while (hours < 0) {
-                System.out.print("Sleep hours cannot be negative. Re-enter: ");
+            double hours = -1;
+            try{
+                hours = input.nextDouble();
+            } finally {
+                System.out.println("error");
+            }
+ 
+            while (hours < 0 || hours > 24) {
+                System.out.print("Sleep hours cannot be negative or above 24. Re-enter: ");
                 hours = input.nextDouble();
             }
 
